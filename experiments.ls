@@ -429,14 +429,10 @@ export paavoDrivingAccelerate = seqr.bind ->*
 
 export paavoKoekoe = seqr.bind ->*
 
-# 1:säde, 2:tavoitenopeus, 3:aika, 4:kiihtymishitaus, 5:automaattinen ohjaus, 6:serpenttiini=0 ja ympyra=2, 7:suoran pituus serpenttiinillä, 8: instruktiot (ex-textuuri)
-	
+	# 1:säde, 2:tavoitenopeus, 3:aika, 4:kiihtymishitaus, 5:automaattinen ohjaus, 6:serpenttiini=0 ja ympyra=2, 7:suoran pituus serpenttiinillä, 8: instruktiot (ex-textuuri)
+	yield runScenario scenario.circleRev, r, v2, t2, 1.2
 	env = newEnv!
 	yield scenario.participantInformation yield env.get \env
-	#logger = (yield env.get(\env)).logger
-	#env.let \destroy
-	#yield env
-#miten tämä^ toimii, ja miten saa tallennettua vastaukset ja minne ne menevät?
 
 	r = 50.0
 	yaw1 = 14.0
@@ -454,13 +450,13 @@ export paavoKoekoe = seqr.bind ->*
 	yield runWithNewEnv scenario.calibration, 1
 	yield runWithNewEnv scenario.verification, 1
 
-#testiajo
+	#testiajo
 	yield runScenario scenario.circleRev, r, v2, 70, 1.1, 0, 0, 83.8, 1
 	
 	yield runWithNewEnv scenario.calibration, 2
 	yield runWithNewEnv scenario.verification, 1
 
-#snake
+	#snake
 	yield runScenario scenario.circle, r, v1, t1, 1.1, 0, 0, 0, 2
 	yield runScenario scenario.circleRev, r, v2, t2, 1.2
 	yield runScenario scenario.circle, r, v3, t3, 1.4
@@ -468,19 +464,57 @@ export paavoKoekoe = seqr.bind ->*
 	yield runWithNewEnv scenario.calibration, 4
 	yield runWithNewEnv scenario.verification, 2
 
-#sweep
+	#sweep
 	yield runScenario scenario.circle, r, 103, 60, 49, 0, 2, 0, 3
 	yield runScenario scenario.circleRev, r, 103, 60, 49, 0, 2 
 
 	yield runWithNewEnv scenario.calibration, 4
 	yield runWithNewEnv scenario.verification, 2	
 
-#tolpat
+	#tolpat
 	yield runScenario scenario.rocksOnCircle, r, v2, 60, 1.2, 0, 0, 0, 4
 
 	yield runWithNewEnv scenario.calibration, 5
 	
 	yield runWithNewEnv scenario.experimentOutro
+
+
+export coolMoonPresentation = seqr.bind ->*
+
+	# 1:säde, 2:tavoitenopeus, 3:aika, 4:kiihtymishitaus, 5:automaattinen ohjaus, 6:serpenttiini=0 ja ympyra=2, 7:suoran pituus serpenttiinillä, 8: instruktiot (ex-textuuri)
+	
+
+	r = 50.0
+	yaw1 = 14.0
+	yaw2 = 18.0
+	yaw3 = 22.0
+
+	v1 = (yaw1/360*2*Math.PI*r*3.6)
+	v2 = (yaw2/360*2*Math.PI*r*3.6)
+	v3 = (yaw3/360*2*Math.PI*r*3.6)
+
+	t1 = (360.0/yaw1)*2.1
+	t2 = (360.0/yaw2)*3.15
+	t3 = (360.0/yaw3)*4.15
+
+	#testiajo
+	yield runScenario scenario.circleRev, r, v2, 70, 1.1, 0, 0, 83.8, 1
+	
+
+
+	#snake
+	yield runScenario scenario.circleRev, r, v2, t2, 1.2, 0, 0, 0, 2
+
+
+	#sweep
+	yield runScenario scenario.circleRev, r, 103, 60, 49, 0, 2, 0, 3
+
+
+
+	#tolpat
+	yield runScenario scenario.rocksOnCircle, r, v2, 60, 1.2, 0, 0, 0, 4
+
+
 
 export rocksOnPath = seqr.bind ->*
 	s = 80
