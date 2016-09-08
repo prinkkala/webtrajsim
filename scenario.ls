@@ -654,10 +654,12 @@ export briefInst = seqr.bind (env, inst, scene) ->*
 			@ \cancel-button .hide!
 	result = yield ui.inputDialog env, dialogs
 
-export basecircleDriving = seqr.bind (env, rx, ry, l, sky, ellipse, rocksOnPath, roadShape, text) ->*
+
+
+export basecircleDriving = seqr.bind (env, rx, ry, l, sky, ellipse, rocksOnPath, roadShape) ->*
 	env = env with
 		controls: NonThrottleControl env.controls
-	scene = yield circleScene env, rx, ry, l, sky, ellipse, rocksOnPath, roadShape, text
+	scene = yield circleScene env, rx, ry, l, sky, ellipse, rocksOnPath, roadShape
 	return scene
 
 onInnerLane = (scene) ->
@@ -2057,7 +2059,7 @@ exportScenario \participantInformation, (env) ->*
 	dialogs =
 		->
 			@ \title .text L "Welcome to the experiment"
-			@ \text .append L "%intro.introduction"
+			@ \text .append L "%intro.introduction_Curve"
 			@ \accept .text L "Next"
 			@ \cancel-button .hide!
 		->
@@ -2114,7 +2116,7 @@ exportScenario \participantInformation, (env) ->*
 			input = $("""<input name="drivinglicenseyear" type="number" min="1900" max="#currentYear" style="color: black">""")
 			.appendTo @ \inputs
 			setTimeout input~focus, 0
-		->
+		#->
 			#@ \title .text L "Past year driving"
 			#@ \text .append L "On average, how frequently have you driven during the <strong>past year</strong>."
 			#@ \accept .text L "Next"
@@ -2136,12 +2138,12 @@ exportScenario \participantInformation, (env) ->*
 			#	* value: 'monthly', label: L "Most months"
 			#	* value: 'yearly', label: L "Few times a year"
 			#	* value: 'none', label: L "Not at all"
-		#->
+		->
 			@ \title .text L "Past 12 month kilometrage"
 			@ \text .append L "Give out an estimate on how many kilometres have you driven during the past 12 months."
 			@ \accept .text L "Next"
 			@ \cancel .text L "Previous"
-			@ \inputs .append radioSelect "drivingDist",
+			@ \inputs .append radioSelect "drivingDistYear",
 				* value: 'None', label: L "not driven"
 				* value: '0', label: "<1000"
 				* value: '1000', label: "1000 - 5000"
@@ -2156,7 +2158,7 @@ exportScenario \participantInformation, (env) ->*
 			@ \text .append L "Give out an estimate on how many kilometres have you driven during your lifetime."
 			@ \accept .text L "Next"
 			@ \cancel .text L "Previous"
-			@ \inputs .append radioSelect "drivingDist",
+			@ \inputs .append radioSelect "drivingDistLife",
 				* value: '0', label: "<1000"
 				* value: '1000', label: "1000 - 10 000"
 				* value: '10000', label: "10 001 - 30 000"
@@ -2225,6 +2227,16 @@ exportScenario \calibration, (env, i) ->*
 		@ \title .append L "Calibration"
 		@ \content .append L text
 		@ \accept .text L "Ready"
+		@ \progress .hide()
+		@ \progressTitle .hide()
+
+exportScenario \verification, (env, i) ->*
+	L = env.L
+	text = '%verif.inst' + i.toString()
+	yield ui.instructionScreen env, ->
+		@ \title .append L "Verification"
+		@ \content .append L text
+		@ \accept .text L "Verification ready"
 		@ \progress .hide()
 		@ \progressTitle .hide()
 
@@ -2306,7 +2318,21 @@ exportScenario \blindPursuit, (env, {nTrials=50, oddballRate=0}={}) ->*
 
 
 
-exportScenario \circle, (env, rx, s, dur, t, aut, shape, straightLength, texture) ->*
+exportScenario \circle, (env, rx, s, dur, t, aut, shape, straightLength, inst) ->*
+	
+	L = env.L
+	if inst == 1
+		@let \intro,
+			title: L "Harjoitteluosio"
+			content: L '%curveDrivingPractice.intro'
+	if inst == 2
+		@let \intro,
+			title: L "Osa 1"
+			content: L '%curveDrivingSnake.intro'
+	if inst == 3
+		@let \intro,
+			title: L "Osa 2"
+			content: L '%curveDrivingSweep.intro'
 
 	if rx == undefined
 		rx = xrad
@@ -2318,10 +2344,11 @@ exportScenario \circle, (env, rx, s, dur, t, aut, shape, straightLength, texture
 
 	settingParams = {major_radius: rx, minor_radius: ry, straight_length: 0, target_speed: s, direction: 1, static_probes: 1, four: 1, future: 2, automatic: 0, deviant: 0}
 
-	scene = yield basecircleDriving env, rx, ry, straightLength, true, false, 0, shape, texture
+	scene = yield basecircleDriving env, rx, ry, straightLength, true, false, 0, shape, inst
 	scene.params = settingParams
 	addMarkerScreen scene, env
 	
+
 	#adding speedmeter & localisation
 	#L = env.L
 	#scene.player.scoremeter = ui.gauge env,
@@ -2376,8 +2403,11 @@ exportScenario \circle, (env, rx, s, dur, t, aut, shape, straightLength, texture
 			@let \done, passed: true, outro:
 				title: env.L "Passed"
 				content: """
-				<p>Suoritus kesti #{trialTime.toFixed 1} sekuntia.</p>
-				 """
+				<p>Paina OK.</p>
+				"""
+				#content: """
+				#<p>Suoritus kesti #{trialTime.toFixed 1} sekuntia.</p>
+				# """
 			return false
 
 	return yield @get \done
@@ -2423,7 +2453,22 @@ exportScenario \vsyncTest, (env) ->*
 
 
 
-exportScenario \circleRev, (env, rx, s, dur, t, aut, shape, straightLength, texture) ->*
+exportScenario \circleRev, (env, rx, s, dur, t, aut, shape, straightLength, inst) ->*
+	
+
+	L = env.L
+	if inst == 1
+		@let \intro,
+			title: L "Harjoitteluosio"
+			content: L '%curveDrivingPractice.intro'
+	if inst == 2
+		@let \intro,
+			title: L "Osa 1"
+			content: L '%curveDrivingSnake.intro'
+	if inst == 3
+		@let \intro,
+			title: L "Osa 2"
+			content: L '%curveDrivingSweep.intro'
 
 	if rx == undefined
 		rx = xrad
@@ -2436,7 +2481,7 @@ exportScenario \circleRev, (env, rx, s, dur, t, aut, shape, straightLength, text
 
 	settingParams = {major_radius: rx, minor_radius: ry, straight_length: 0, target_speed: s, direction: 1, static_probes: 1, four: 1, future: 2, automatic: 0, deviant: 0}
 
-	scene = yield basecircleDriving env, rx, ry, straightLength, true, false, 0, shape, texture
+	scene = yield basecircleDriving env, rx, ry, straightLength, true, false, 0, shape, inst
 	scene.params = settingParams
 	addMarkerScreen scene, env
 	addBackgroundColor scene
@@ -2496,15 +2541,25 @@ exportScenario \circleRev, (env, rx, s, dur, t, aut, shape, straightLength, text
 			@let \done, passed: true, outro:
 				title: env.L "Passed"
 				content: """
-				<p>Suoritus kesti #{trialTime.toFixed 2} sekuntia.</p>
-				 """
+				<p>Paina OK.</p>
+				"""
+				#content: """
+				#<p>Suoritus kesti #{trialTime.toFixed 1} sekuntia.</p>
+				# """
 			return false
 
 	return yield @get \done
 
 
 
-exportScenario \rocksOnCircle, (env, rx, s, dur, t, aut, shape, straightLength) ->*
+exportScenario \rocksOnCircle, (env, rx, s, dur, t, aut, shape, straightLength, inst) ->*
+
+
+	L = env.L
+	if inst == 4
+		@let \intro,
+			title: L "Osa 3"
+			content: L '%curveDrivingPole.intro'
 
 	if rx == undefined
 		rx = 160
@@ -2518,9 +2573,10 @@ exportScenario \rocksOnCircle, (env, rx, s, dur, t, aut, shape, straightLength) 
 
 	settingParams = {major_radius: rx, minor_radius: ry, straight_length: 0, target_speed: s, direction: 1, static_probes: 1, four: 1, future: 2, automatic: 0, deviant: 0}
 
-	scene = yield basecircleDriving env, rx, ry, straightLength, true, false, 1, shape
+	scene = yield basecircleDriving env, rx, ry, straightLength, true, false, 1, shape, inst
 	scene.params = settingParams
 	addMarkerScreen scene, env
+	addBackgroundColor scene
 
 	startPoint = 0
 	scene.player.physical.position.x = scene.centerLine.getPointAt(startPoint).y
@@ -2568,8 +2624,11 @@ exportScenario \rocksOnCircle, (env, rx, s, dur, t, aut, shape, straightLength) 
 			@let \done, passed: true, outro:
 				title: env.L "Passed"
 				content: """
-				<p>Suoritus kesti #{trialTime.toFixed 2} sekuntia.</p>
-				 """
+				<p>Paina OK.</p>
+				"""
+				#content: """
+				#<p>Suoritus kesti #{trialTime.toFixed 1} sekuntia.</p>
+				# """
 			return false
 
 	return yield @get \done
@@ -2591,6 +2650,7 @@ exportScenario \rocksOnCircleRev, (env, rx, s, dur) ->*
 	scene = yield basecircleDriving env, rx, ry, 0, true, false, true
 	scene.params = settingParams
 	addMarkerScreen scene, env
+	addBackgroundColor scene	
 
 	startPoint = 0.50
 	scene.player.physical.position.x = scene.centerLine.getPointAt(startPoint).y
@@ -2634,8 +2694,11 @@ exportScenario \rocksOnCircleRev, (env, rx, s, dur) ->*
 			@let \done, passed: true, outro:
 				title: env.L "Passed"
 				content: """
-				<p>Suoritus kesti #{trialTime.toFixed 2} sekuntia.</p>
-				 """
+				<p>Paina OK.</p>
+				"""
+				#content: """
+				#<p>Suoritus kesti #{trialTime.toFixed 1} sekuntia.</p>
+				# """
 			return false
 
 	return yield @get \done

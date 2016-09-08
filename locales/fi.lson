@@ -3,6 +3,8 @@
 'Time': 'Aika'
 's': 's'
 
+'OK': 'OK'
+
 'Glances': 'Katseet'
 
 'Run the light': 'Aja punaista päin'
@@ -120,6 +122,7 @@
 'I wish to participate': 'Haluan osallistua kokeeseen'
 
 'Ready': 'Kalibraatio valmis'
+'Verification ready': 'Verifikaatio valmis'
 
 'Welcome to the experiment': 'Tervetuloa kokeeseen!'
 '%intro.introduction': """
@@ -134,10 +137,21 @@ Voit kysyä kokeenjohtajalta lisätietoa sinulle epäselvistä asioista milloin 
 Teemu Itkonen ja Jami Pekkanen.
 """
 
+'%intro.introduction_Curve':"""
+<p>Tämän kokeen tarkoituksena on tutkia autonkuljettajan katsekäyttäytymistä kaarreajossa.
+
+<p>Koe koostuu useasta osatehtävästä,
+jotka esitellään kokeen edetessä. Koe kestää kokonaisuudessaan enimmillään tunnin.
+Voit kysyä kokeenjohtajalta lisätietoa sinulle epäselvistä asioista milloin tahansa.
+
+<p> Kokeen vastuullisena tutkijana toimii FT Otto Lappi ja mittauksesta vastaa 
+Paavo Rinkkala.
+"""
+
 'Participation is voluntary': 'Osallistuminen on vapaaehtoista'
 '%intro.participantRights': """<p>Kokeeseen osallistuminen on vapaaehtoista.
 Voit halutessasi peruuttaa tai keskeyttää osallistumisesi tai kieltäytyä pyydetystä
-toiminnasta missä vaiheessa tahansa.
+toiminnasta missä vaiheessa tahansa. Jos haluat jatkaa, paina "Haluan osallistua kokeeseen"-nappia.
 """
 
 'Collection and use of data': 'Tietojen keräys ja käyttö'
@@ -167,7 +181,7 @@ siihen lähetetä tähän kokeeseen liittymätöntä viestintää."""
 'Male': 'Mies'
 
 'Driving license': 'Ajokorttiluokka'
-"What class is your driver's licence?": """Sallitut ajoneuvoluokat"""
+"What class is your driver's licence?": """Sallitut ajoneuvoluokat. Kirjoita yhteen."""
 
 'Driving license year': 'Kuljettajatutkinnon suoritus'
 '%intro.license': """Anna vuosi, jona olet saanut B-luokan ajo-oikeuden (henkilöauto).
@@ -220,22 +234,47 @@ Mikä seuraavista vastaa parhaiten sitä, kuinka usein olet ajanut keskimäärin
 'Dark driving' : 'Ärsykkeen tunnistaminen'
 
 'Calibration': 'Silmänliikekameran kalibraatio'
+'Verification': 'Verifikaatio'
 '%calib.inst1' : """
-			<p>Seuraavaksi kalibroidaan silmänliikekamera. Ota mukava asento ja katso kuvaruudun keskelle. Yritä olla liikuttelematta päätä kalibraation aikana.
+			<p>Seuraavaksi kalibroidaan silmänliikekamera. Ota mukava asento ja katso kuvaruudun keskelle. Yritä olla liikuttelematta päätä tai haukottelematta kalibraation aikana.
 			<p>Ruudulle ilmestyy yksi kerrallaan maalitauluja, joita sinun pitää katsoa.
-            <p>Pidä katse kiinni maalitaulun keskelle ilmestyvässä vihreässä pisteessä. Yritä olla räpsyttelemättä kun katsot vihreää pistettä.
+            		<p>Pidä katse kiinni maalitaulun keskelle ilmestyvässä vihreässä pisteessä. Yritä olla räpsyttelemättä kun katsot vihreää pistettä.
+			<p>Kun olet valmis aloittamaan kalibraation älä vielä siirry eteenpäin, vaan ilmoita valmiutesi kokeenjohtajalle, kiitos!
 			"""
 
 '%calib.inst2' : """
 			<p>Kalibroidaan silmänliikekamera uudestaan. Kuten aikasemmin, ota mukava asento ja katso kuvaruudun keskelle. Yritä olla liikuttelematta päätä kalibraation aikana.
 			<p>Ruudulle ilmestyy yksi kerrallaan maalitauluja, joita sinun pitää katsoa.
-            <p>Pidä katse kiinni maalitaulun keskelle ilmestyvässä vihreässä pisteessä. Yritä olla räpsyttelemättä kun katsot vihreää pistettä.
+          		<p>Pidä katse kiinni maalitaulun keskelle ilmestyvässä vihreässä pisteessä. Yritä olla räpsyttelemättä kun katsot vihreää pistettä.
+			<p>Kun olet valmis aloittamaan kalibraation, sano se kokeenjohtajalle, kiitos!
 			"""
 
 '%calib.inst3' : """
 			<p>Lopuksi tarkistetaan vielä kerran silmänliikekameran kalibraatio. Ota mukava asento ja katso kuvaruudun keskelle. Yritä olla liikuttelematta päätä kalibraation aikana.
 			<p>Ruudulle ilmestyy yksi kerrallaan maalitauluja, joita sinun pitää katsoa.
-            <p>Pidä katse kiinni maalitaulun keskelle ilmestyvässä vihreässä pisteessä. Yritä olla räpsyttelemättä kun katsot vihreää pistettä.
+           		<p>Pidä katse kiinni maalitaulun keskelle ilmestyvässä vihreässä pisteessä. Yritä olla räpsyttelemättä kun katsot vihreää pistettä.
+			<p>Sano kun olet valmis aloittamaan kalibraation, kiitos!
+			"""
+'%calib.inst4' : """
+			<p>Kalibroidaan silmänliikekamera kuten aikaisemminkin.
+			<p>Sano kun olet valmis aloittamaan kalibraation, kiitos!
+			"""
+
+'%calib.inst5' : """
+			<p>Lopuksi tarkistetaan vielä silmänliikekameran kalibraatio, eli kalibroidaan kamera kuten aikaisemminkin.
+			<p>Sano kun olet valmis aloittamaan kalibraation, kiitos!
+			"""
+
+'%verif.inst1' : """
+			<p>Tarkistamme kalibraation onnistumisen vielä verifikaatiolla.
+			<p>Samalla tavalla kuin kalibraatiossa, katso ilmestyvien maalitaulujen keskelle.
+			<p>Kun olet valmis aloittamaan verifikaation, sano se kokeenjohtajalle, kiitos!
+			"""
+
+'%verif.inst2' : """
+			<p>Suoritamme verifikaation.
+			<p>Katso ilmestyvien maalitaulujen keskelle.
+			<p>Sano kun olet valmis aloittamaan verifikaation, kiitos!
 			"""
 
 'Dark driving practice': 'Ärsykkeen tunnistaminen (harjoittelu)'
@@ -367,3 +406,26 @@ olemaan reagoimatta millään tavoin ääniärsykkeisiin.
 'Please keep your eyes closed': 'Pidä silmäsi suljettuna kunnes kuulet merkkiäänen.'
 
 'Round done': 'Kierros suoritettu'
+
+'%curveDrivingPractice.intro': """
+			<p>Tämä on harjoitteluosuus, jonka aikana on tarkoitus totuttautua simuloituun autoon ja rataan.
+			<p>Käytät ohjauspyörää ohjaamiseen. Polkimia ei käytetä, sillä nopeus säätyy automaattisesti.
+			<p>Tehtävänäsi on ajaa rataa pitkin.
+			<p>Kun olet valmis, voit painaa ratin oikeanpuoleista punaista nappia. Auto lähtee liikkeelle samasta napista. 
+			"""
+'%curveDrivingSnake.intro': """
+			<p>Tästä alkaa varsinainen koe. 
+			<p>Tehtävänäsi on ajaa mutkaista rataa pitkin.
+			<p>Ajoja tässä tehtävässä on kolme kappaletta ja ne tapahtuvat eri nopeuksilla.
+			<p>Kun olet valmis, voit painaa ratin oikeanpuoleista punaista nappia. Auto lähtee liikkeelle samasta napista. 
+			"""
+'%curveDrivingSweep.intro': """
+			<p>Tehtävänäsi on ajaa kääntyvää rataa pitkin. Nyt auto kiihdyttää hitaasti ja ajoja on kaksi kappaletta.
+			<p>Kun olet valmis, voit painaa nappia.
+			"""
+'%curveDrivingPole.intro': """
+			<p>Seuraavassa ja viimeisessä kokeessa tien keskellä on matalia tolppia.
+			<p>Kohdassa, jossa tolppa kohtaa maan, on punainen merkki.
+			<p>Tehtäväsi on katseellasi seurata aina seuraavan tolpan punaista merkkiä samalla kun ajat rataa pitkin.
+			<p>Kun olet valmis, voit painaa nappia.
+			"""
