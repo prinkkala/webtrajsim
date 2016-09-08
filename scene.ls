@@ -428,7 +428,7 @@ export addCircleGround = (scene, rx, ry, length, rocksOnPath, roadShape, texture
 	roadTextureNorm = 'res/world/road_double.png'
 	roadTextureAlt = 'res/world/road2_alpha8.png'
 	
-	terrainSize = 4500
+	terrainSize = 2000
 	textureSize = 40
 
 	textureRep = terrainSize/textureSize

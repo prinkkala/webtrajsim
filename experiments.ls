@@ -430,7 +430,6 @@ export paavoDrivingAccelerate = seqr.bind ->*
 export paavoKoekoe = seqr.bind ->*
 
 	# 1:säde, 2:tavoitenopeus, 3:aika, 4:kiihtymishitaus, 5:automaattinen ohjaus, 6:serpenttiini=0 ja ympyra=2, 7:suoran pituus serpenttiinillä, 8: instruktiot (ex-textuuri)
-	yield runScenario scenario.circleRev, r, v2, t2, 1.2
 	env = newEnv!
 	yield scenario.participantInformation yield env.get \env
 
@@ -499,16 +498,12 @@ export coolMoonPresentation = seqr.bind ->*
 
 	#testiajo
 	yield runScenario scenario.circleRev, r, v2, 70, 1.1, 0, 0, 83.8, 1
-	
-
 
 	#snake
 	yield runScenario scenario.circleRev, r, v2, t2, 1.2, 0, 0, 0, 2
 
-
 	#sweep
 	yield runScenario scenario.circleRev, r, 103, 60, 49, 0, 2, 0, 3
-
 
 
 	#tolpat
